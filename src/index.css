@@ -1,0 +1,136 @@
+#box{
+    position: absolute;
+    margin: 5%;
+    left: 25%;
+    margin-bottom: 5%;
+    width: 35%;
+    height: 80%;
+    background-color: lightgrey;
+}
+#heading{
+    height: 13%;
+    width: 100%;
+    background-color: lightcyan;
+    font-size: 300%;
+    text-align: center;
+}
+#chatbody{
+    position: relative;
+    height: 69%;
+    width: 100%;
+    background-color: rgb(226, 239, 245);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+#send{
+    height: 18%;
+    width: 100%;
+    background-color: lightskyblue;
+}
+#message{
+    margin-top: 4%;
+    margin-left: 15%;
+    height: 30%;
+    width: 60%;
+}
+
+#messagesend{
+    height: 35%;
+}
+
+#image{
+    margin: 2%;
+    margin-bottom: 0%;
+    border-radius: 4px;
+
+}
+#image span{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.chats{
+    position: static;
+    padding: 10px;
+    width: auto;
+    height: 5%;
+    margin: 3%;
+    background-color: lightskyblue;
+}
+.chatting{
+    position: relative;
+    display: block;
+    height: 5%;
+    padding: 10px;
+    width: max-content;
+    max-width: 80%;
+    border-radius: 5px 20px 20px 20px;
+    margin: 5%;
+    margin-top: 1%;
+    margin-bottom: 4%;
+    background-color: white;
+}
+.butt{
+    position: relative;
+    display: inline-block;
+    margin-bottom: 3%;
+    border-radius: 12px;
+    border: 1px solid black;
+    background-color: white;
+    color: blue;
+    margin-left: 5%;
+}
+.butt:hover{
+    background-color: lightskyblue;
+    cursor: pointer;
+
+}
+.UserReplies{
+    text-align: right;
+    display: block;
+    border-radius: 20px 5px 10px 20px; 
+    height: 5%;
+    padding: 2%;
+    color: white;
+    width: max-content;
+    margin-right: 4%;
+    margin-top: 2%;
+    float: right;
+    background-color: rgb(51, 51, 250);   
+}
+
+.youclass{
+    float: right;
+    margin-right: 3%;
+    font-weight: bold;
+}
+
+.bgrp{
+    position: relative;
+    left: 15%;
+    width: 7%;
+    float: left;
+}
+.butt-grp{
+    display: block;
+    margin-bottom: 15%;
+}
+
+@keyframes gradient{
+
+    0%{
+      background-position: 0% 50%;
+    }
+    50%{
+      background-position: 100% 50%;
+    }
+    100%{
+      background-position: 0% 50%;
+    }
+  }
+  
+body{
+    background: linear-gradient(-45deg, #185ADB, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 700% 700%;
+    animation: gradient 25s ease infinite;;
+}

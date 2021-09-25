@@ -48,6 +48,15 @@
     font-size: 15px;
     font-weight: bold;
 }
+#Date{
+    margin-left: 10%;
+    margin-right: 0%;
+    display: inline-block;
+}
+
+#dd{
+    margin-bottom: 4%;
+}
 
 .chats{
     position: static;
@@ -93,6 +102,7 @@
     padding: 2%;
     color: white;
     width: max-content;
+    max-width: 80%;
     margin-right: 4%;
     margin-top: 2%;
     float: right;

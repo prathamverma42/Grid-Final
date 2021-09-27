@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import logo from './Grid.png';
 import "react-widgets/styles.css";
-import "react-widgets/scss/styles.scss";
-import './Styling.scss';
 import axios from "axios";
 import Multiselect from "react-widgets/Multiselect";
 import DatePicker from "react-widgets/DatePicker";

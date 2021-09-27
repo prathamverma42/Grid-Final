@@ -1,10 +1,21 @@
-#root{
+#GridLogo{
     position: absolute;
     height: 100%;
 }
-#root img{
-    height: 10%;
-    border-radius: 100%;
+#GridLogo img{
+    height: 7%;
+}
+#TeamName{
+    position: absolute;
+    margin-top: 20%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 45px;
+}
+#TeamMembers{
+    position: absolute;
+    margin-top: 17%;
+    font-size: 240%;
+    margin-left: 70%;
 }
 #box{
     position: absolute;

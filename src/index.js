@@ -10,8 +10,8 @@ import axios from "axios";
 const credit = {};
 const customersurvey = {};
 const iqtest = {};
-var Password;
-var Username;
+const login={};
+const signup={};
 var UserId;
 //End of Database Requirements
 
@@ -20,6 +20,7 @@ var UserId;
 var IQScore=0;
 var flag=0;
 var ids="1";
+var checkres=0;
 const e = React.createElement;
 const cont=document.querySelector('#chatbody');
 const sending=document.getElementById('message');
@@ -38,7 +39,7 @@ window.addEventListener('keypress', function (e) {
 
 
 function SendToBackend(file,object){
-  axios.post("http://localhost:5000/"+file, object).then((res) => {
+  axios.post("http://localhost:5000/"+file +'/' +UserId, object).then((res) => {
     console.log(res.data);
   });
 }
@@ -58,6 +59,7 @@ class IQResponse extends React.Component{
       e('div',{className:'youclass'},'You'),
       e('br'),
       e('div',{className:'UserReplies', id:'dd'},userString),
+      e('br'),
       e('br')
     );
   }
@@ -85,7 +87,7 @@ class ThirdQuestion extends React.Component{
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
       e('div',{className:'chatting'},'Q3. Water is to a pipe as ? is to a wire.'),
-      e('button',{className:'butt',onClick:function() {iqtest.q3 = "electricity";IQScore++;userString='electricity';AddComponent(++ids,IQResponse,'IQResponse');SendToBackend('iqtest',iqtest);AddComponent(++ids,ThankYouIQ,'ThankYouIQ')}},'electricity'),
+      e('button',{className:'butt',onClick:function() {iqtest.q3 = "electricity";IQScore++;iqtest.score=IQScore;userString='electricity';AddComponent(++ids,IQResponse,'IQResponse');SendToBackend('iqtest',iqtest);AddComponent(++ids,ThankYouIQ,'ThankYouIQ')}},'electricity'),
       e('button',{className:'butt',onClick:function() {iqtest.q3 = "heat";userString='heat';AddComponent(++ids,IQResponse,'IQResponse');SendToBackend(iqtest);AddComponent(++ids,ThankYouIQ,'ThankYouIQ')}},'heat'),
       e('button',{className:'butt',onClick:function() {iqtest.q3 = "gas";userString='gas';AddComponent(++ids,IQResponse,'IQResponse');SendToBackend(iqtest);AddComponent(++ids,ThankYouIQ,'ThankYouIQ')}},'gas')
     );
@@ -144,9 +146,9 @@ class Recommendation extends React.Component{
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
       e('div',{className:'chatting'},'How likely Are you to recommend this company?'),
-      e('button',{className:'butt',onClick:function() {customersurvey.recommendation = "Very likely";SendToBackend('customer',customersurvey);AddComponent(++ids,ThankYouSurvey,'ThankYouSurvey')}},'Very likely'),
-      e('button',{className:'butt',onClick:function() {customersurvey.recommendation = "Somewhat likely";SendToBackend('customer',customersurvey);AddComponent(++ids,ThankYouSurvey,'ThankYouSurvey')}},'Somewhat likely'),
-      e('button',{className:'butt',onClick:function() {customersurvey.recommendation = "Not at all likely";SendToBackend('customer',customersurvey);AddComponent(++ids,ThankYouSurvey,'ThankYouSurvey')}},'Not at all likely')
+      e('button',{className:'butt',onClick:function() {customersurvey.recommendation = "Very likely";SendToBackend('survey',customersurvey);AddComponent(++ids,ThankYouSurvey,'ThankYouSurvey')}},'Very likely'),
+      e('button',{className:'butt',onClick:function() {customersurvey.recommendation = "Somewhat likely";SendToBackend('survey',customersurvey);AddComponent(++ids,ThankYouSurvey,'ThankYouSurvey')}},'Somewhat likely'),
+      e('button',{className:'butt',onClick:function() {customersurvey.recommendation = "Not at all likely";SendToBackend('survey',customersurvey);AddComponent(++ids,ThankYouSurvey,'ThankYouSurvey')}},'Not at all likely')
     );
   }
 }
@@ -174,16 +176,16 @@ class StartSurvey extends React.Component{
       e('div',{className:'chatting'},'Hello Let us begin with your survey'),
       e('div',{className:'chatting'},'How Would You Rate Your Delivery Experience?'),
       e('div',{className:'butt-grp'},
-      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 1;AddComponent(ids++,DeliveryQuesion,'DeliveryQuesion')}},'1'),
-      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 2;AddComponent(ids++,DeliveryQuesion,'DeliveryQuesion')}},'2'),
-      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 3;AddComponent(ids++,DeliveryQuesion,'DeliveryQuesion')}},'3'),
-      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 4;AddComponent(ids++,DeliveryQuesion,'DeliveryQuesion')}},'4'),
-      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 5;AddComponent(ids++,DeliveryQuesion,'DeliveryQuesion')}},'5'),
-      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 6;AddComponent(ids++,DeliveryQuesion,'DeliveryQuesion')}},'6'),
-      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 7;AddComponent(ids++,DeliveryQuesion,'DeliveryQuesion')}},'7'),
-      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 8;AddComponent(ids++,DeliveryQuesion,'DeliveryQuesion')}},'8'),
-      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 9;AddComponent(ids++,DeliveryQuesion,'DeliveryQuesion')}},'9'),
-      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 10;AddComponent(ids++,DeliveryQuesion,'DeliveryQuesion')}},'10'))
+      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 1;AddComponent(++ids,DeliveryQuesion,'DeliveryQuesion')}},'1'),
+      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 2;AddComponent(++ids,DeliveryQuesion,'DeliveryQuesion')}},'2'),
+      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 3;AddComponent(++ids,DeliveryQuesion,'DeliveryQuesion')}},'3'),
+      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 4;AddComponent(++ids,DeliveryQuesion,'DeliveryQuesion')}},'4'),
+      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 5;AddComponent(++ids,DeliveryQuesion,'DeliveryQuesion')}},'5'),
+      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 6;AddComponent(++ids,DeliveryQuesion,'DeliveryQuesion')}},'6'),
+      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 7;AddComponent(++ids,DeliveryQuesion,'DeliveryQuesion')}},'7'),
+      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 8;AddComponent(++ids,DeliveryQuesion,'DeliveryQuesion')}},'8'),
+      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 9;AddComponent(++ids,DeliveryQuesion,'DeliveryQuesion')}},'9'),
+      e('button',{className:'bgrp',onClick:function() {customersurvey.rating = 10;AddComponent(++ids,DeliveryQuesion,'DeliveryQuesion')}},'10'))
     );
   }
 }
@@ -281,7 +283,8 @@ class ZerothQuestion extends React.Component{
     return e(
       'div',{id:'Question1'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Hi I am a bot Kindly Select one of the following options : '),
+      e('div',{className:'chatting'},'Congrats You have sucessfully Logged In 🥳'),
+      e('div',{className:'chatting'},'Kindly Select one of the following options : '),
       e('div',{}, 
       e('button',{className:'butt',onClick:function() {sending.placeholder='Enter Name : for eg - Shikhar Saini';AddComponent(++ids,ApplyCreditCard,'Name')}},'💳 Apply Credit Card'),
       e('button',{className:'butt',onClick:function() {AddComponent(++ids,StartSurvey,'Name')}},'📝 Customer Survey'),
@@ -299,7 +302,7 @@ class WrongPassword extends React.Component{
     return e(
       'div',{className:'Questions'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Oops you have entered wrong Username or Password'),
+      e('div',{className:'chatting'},'Oops ☹️ You have entered wrong Email or Password'),
       e('div',{className:'chatting'},'Would you like to try again or return to menu'),
       e('button',{className:'butt',onClick:function(){AddComponent(++ids,LoginUsername,'LoginUsername');}},'Try Again'),
       e('button',{className:'butt',onClick:function(){AddComponent(++ids,LoginOrSignUp,'LoginOrSignUp');}},'Menu')
@@ -312,7 +315,7 @@ class LoginPassword extends React.Component{
     return e(
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Thank You Now Please Enter Your Password')
+      e('div',{className:'chatting'},'Great 👏 Now Please Enter Your Password 🔒')
     )
   }
 }
@@ -322,7 +325,7 @@ class LoginUsername extends React.Component{
     return e(
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Hi Nice to Meet you Again Please Enter Your Username')
+      e('div',{className:'chatting'},'Hi 👋 Nice to Meet you Again Please Enter Your Email ID')
     );
   }
 }
@@ -332,17 +335,26 @@ class LoginOrSignUp extends React.Component{
     return e(
       'div',{className:'Question '},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Hi I am a bot Kindly Select one of the following options : '),
-      e('button',{className:'butt',onClick:function(){AddComponent(++ids,LoginUsername,'LoginUsername')}},'Login'),
+      e('div',{className:'chatting'},'Hello 😃 My Name is GridBot I am a bot designed For your Service'),
+      e('div',{className:'chatting'},'Kindly Select one of the following options : 👇'),
+      e('button',{className:'butt',onClick:function(){sending.placeholder='Enter Email ID : ';AddComponent(++ids,LoginUsername,'LoginUsername')}},'Login'),
       e('button',{className:'butt',onClick:function(){AddComponent(++ids,SignUpStart,'SignUpStart')}},'Sign Up')
     );
   }
 }
 
-function checkPassword(UserName,Password){
-  if(UserName=='Shikhar')
-  console.log('shikhar');
-  return 1;
+async function checkPassword (){
+  console.log(login);
+   await axios.post("http://localhost:5000/user/check",login).then(
+    (res)=>{
+      console.log(res.data.status);
+      if(res.data.status)
+        {UserId=res.data.data._id;
+        AddComponent(ids,ZerothQuestion,'ZerothQuestion');}
+       else
+        {AddComponent(ids,WrongPassword,'WrongPassword');}
+    }
+  )
 }
 
 
@@ -355,7 +367,7 @@ class SignUpStart  extends React.Component{
     return e(
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Hii Let Us Begin Your Sign Up '),
+      e('div',{className:'chatting'},'Welcome!! 😄 Let Us Begin Your Sign Up '),
       e('div',{className:'chatting'},'Please Enter A Unique Username ')
     );
   }
@@ -366,7 +378,7 @@ class SignUpPassword extends React.Component{
     return e(
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Great !! Now Please Enter a Password ')
+      e('div',{className:'chatting'},'Great !! 🤗 Now Please Enter a Password ')
     );
   }
 }
@@ -376,14 +388,25 @@ class SignUpComplete extends React.Component{
     return e(
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Thank You!! Your Sign Up is Complete '),
-      e('div',{className:'chatting'},'Now Choose From the Following Options'),
+      e('div',{className:'chatting'},'Thank You!! Your Sign Up is Complete ✨✨✨'),
+      e('div',{className:'chatting'},'Now Choose From the Following Options : 👇'),
       e('div',{}, 
       e('button',{className:'butt',onClick:function() {sending.placeholder='Enter Name : for eg - Shikhar Saini';AddComponent(++ids,ApplyCreditCard,'Name')}},'💳 Apply Credit Card'),
       e('button',{className:'butt',onClick:function() {AddComponent(++ids,StartSurvey,'Name')}},'📝 Customer Survey'),
       e('button',{className:'butt',onClick:function() {AddComponent(++ids,StarterIQtest,'Name')}},'🧠 IQ Test'))
     );
   }
+}
+
+function SignUpBackend(){
+  console.log(signup);
+  axios.post("http://localhost:5000/user",signup).then(
+    (res)=>{
+      UserId= res.data.data._id;
+      console.log(UserId);
+      console.log(res.data);
+    }
+  )
 }
 
 // SignUp Ends Here
@@ -399,8 +422,6 @@ function AddComponent(x,y,z){
   currInput=z;
   let place="#new"+x;
   b.setAttributeNode(align);
-  a.appendChild(document.createElement("br"));
-  a.appendChild(document.createElement("br"));
   a.appendChild(b);
   ReactDOM.render(e(y),document.querySelector(place));
   flag=1;
@@ -426,7 +447,10 @@ function InputValues(){
       att.value="userreply"+ids;
       reply.setAttributeNode(att);
       cont.appendChild(reply);
+      cont.appendChild(document.createElement("br"));
+      cont.appendChild(document.createElement("br"));
       ReactDOM.render(e(UserMessage),document.querySelector("#userreply"+ids));
+      cont.appendChild(document.createElement("br"));
       ids++;
       inputbar.value="";
       flag=0;
@@ -437,19 +461,13 @@ function InputValues(){
       else if(currInput=="PanCard")
       {credit.pancard = userString;sending.placeholder=' ';SendToBackend('credit',credit);AddComponent(ids,ThankYou,'ThankYou');}
       else if(currInput=="LoginUsername")
-      {Username=userString;sending.placeholder='Enter Password : ';AddComponent(ids,LoginPassword,'LoginPassword')}
+      {login.email=userString;sending.placeholder='Enter Password : ';AddComponent(ids,LoginPassword,'LoginPassword')}
       else if(currInput=='LoginPassword')
-      { Password=userString;
-       let valid=checkPassword(Username,Password);
-       if(valid==1)
-        {AddComponent(ids,ZerothQuestion,'ZerothQuestion');}
-       else
-        {AddComponent(ids,WrongPassword,'WrongPassword');}
-      }
+      {login.password=userString;sending.placeholder=' ';checkPassword();}
       else if(currInput=='SignUpStart')
-      {AddComponent(ids,SignUpPassword,'SignUpPassword');}
+      {signup.email=userString;AddComponent(ids,SignUpPassword,'SignUpPassword');}
       else if(currInput=='SignUpPassword')
-      {AddComponent(ids,SignUpComplete,'SignUpComplete');}
+      {signup.password=userString;SignUpBackend();AddComponent(ids,SignUpComplete,'SignUpComplete');}
       cont.scrollTop = cont.scrollHeight;
     }
   }

@@ -34,6 +34,9 @@
 - [Shikhar Saini](https://github.com/shikharsaini)
 - [Siddharth Juyal](https://github.com/sid-juyal)
 
+<h3>:link: Link to the Backend Repository:</h3>
+<a href="https://github.com/prathamverma42/Grid-Final-Backend">https://github.com/JatinGoyal123/college_after_covid_backend</a>
+
 <h3>
 Future Scope of the Project:
 </h3>

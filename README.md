@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+<!-- ## Project Name & Pitch -->
+<h1>Flipkart Grid 3.0</h1>
+<!-- #### Example: -->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- TweetWorld  -->
+<!-- <h3>Tag line:</h3> -->
+<!-- An application used to filter data form Twitter based on user preference, built with React, Redux, JavaScript, and CSS. -->
+<h3>GridBot</h3>
+<!-- ## Project Status -->
+<!-- (only necessary if incomplete) -->
 
-## Available Scripts
+<!-- #### Example: -->
+<!-- <h4>OnB</h4> -->
+<!-- This project is currently in development. Users can filter tweets by username and keyword and see visual data representation. Functionality to sort by additional parameters is in progress. -->
+<h3>Project Idea :bulb:</h3>
+<p>
 
-In the project directory, you can run:
+</p>
+:camera: Project Screen Shot(s)
 
-### `npm start`
+<!-- #### Example: -->
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<h3>Main Page:</h3>
+<p align="center" >
+</p>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<h3>Tech Stack :exclamation:</h3>
+<p>Html, Css, Reactjs, Javascript, Bootstrap, Nodejs, Express, MongoDB
+</p>
 
-### `npm test`
+<h3>
+Future Scope of the Project:
+</h3>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<p>
+</p>
 
-### `npm run build`
+<p align="center">
+  Show some love :blue_heart: and Star :star: the Repository to support the project.
+</p>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## :rocket: Installation and Setup Instructions
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Example:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+You can get the College After Covid Web App up and running on your localhost in 5 minutes with these four steps:
 
-### `npm run eject`
+1. **Clone down this repository. You will need `node` and `npm` installed globally on your machine.**
+2. **Installation:**
+   `npm install`
+3. **To Start Server:**
+   `npm start`
+4. **To Visit App:**
+   `localhost:3000/`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## :heart: Thanks

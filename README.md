@@ -28,6 +28,12 @@
 <p>Html, Css, Reactjs, Javascript, Bootstrap, Nodejs, Express, MongoDB
 </p>
 
+## Authors
+
+- [Pratham Verma](https://github.com/prathamverma42)
+- [Shikhar Saini](https://github.com/shikharsaini)
+- [Siddharth Juyal](https://github.com/sid-juyal)
+
 <h3>
 Future Scope of the Project:
 </h3>

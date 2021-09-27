@@ -2,9 +2,17 @@ import React, { useState, useEffect  } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import logo from './Grid.png';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import "react-widgets/styles.css";
+import "react-widgets/scss/styles.scss";
+import './Styling.scss';
 import axios from "axios";
+import Multiselect from "react-widgets/Multiselect";
+import DatePicker from "react-widgets/DatePicker";
+<DatePicker placeholder="m/dd/yy" />;
+
+
+
+
 
 //Database Requirements
 const credit = {};
@@ -12,8 +20,10 @@ const customersurvey = {};
 const iqtest = {};
 const login={};
 const signup={};
+var featurestosend={};
 var UserId;
 //End of Database Requirements
+
 
 
 
@@ -27,6 +37,10 @@ const sending=document.getElementById('message');
 var userString="Shikhar";
 var currInput="";
 
+
+<DatePicker
+    defaultValue={new Date()}
+    valueFormat={{ dateStyle: "medium" }}/>
 
 
 document.getElementById("messagesend").onclick = InputValues;
@@ -116,10 +130,9 @@ class StarterIQtest extends React.Component{
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
       e('div',{className:'chatting'},'Lets Begin Your IQ test '),
       e('div',{className:'chatting'},'Your First Question is Which number logically follows this series? : 4     6     9     6     14     6      ...'),
-      e('button',{className:'butt',onClick:function() {iqtest.q1 = 17;userString='17';AddComponent(++ids,IQResponse,'IQResponse');AddComponent(++ids,SecondQuestion,'SecondQuestion')}},'17'),
-      e('button',{className:'butt',onClick:function() {iqtest.q1 = 21;userString='21';AddComponent(++ids,IQResponse,'IQResponse');AddComponent(++ids,SecondQuestion,'SecondQuestion')}},'21'),
-      e('button',{className:'butt',onClick:function() {iqtest.q1 = 19;IQScore++;userString='19';AddComponent(++ids,IQResponse,'IQResponse');AddComponent(++ids,SecondQuestion,'SecondQuestion')}},'19')
-
+      e('button',{className:'butt',onClick:function() {IQScore=0;iqtest.q1 = 17;userString='17';AddComponent(++ids,IQResponse,'IQResponse');AddComponent(++ids,SecondQuestion,'SecondQuestion')}},'17'),
+      e('button',{className:'butt',onClick:function() {IQScore=0;iqtest.q1 = 21;userString='21';AddComponent(++ids,IQResponse,'IQResponse');AddComponent(++ids,SecondQuestion,'SecondQuestion')}},'21'),
+      e('button',{className:'butt',onClick:function() {IQScore=0;iqtest.q1 = 19;IQScore++;userString='19';AddComponent(++ids,IQResponse,'IQResponse');AddComponent(++ids,SecondQuestion,'SecondQuestion')}},'19')
     );
   }
 }
@@ -140,6 +153,8 @@ class ThankYouSurvey extends React.Component{
 }
 
 
+
+
 class Recommendation extends React.Component{
   render(){
     return e(
@@ -154,15 +169,31 @@ class Recommendation extends React.Component{
 }
 
 
+let Features = ['Customer Service', 'Variety in Products', 'Delivery Time', 'Offers'];
+function Example() {
+  const [value, setValue] = useState([])
+  useEffect(() => {
+    featurestosend=value;
+    //console.log(featurestosend);
+  });
+
+  return (
+    <Multiselect
+      data={Features}
+      value={value}
+      onChange={value => setValue(value)}
+    />
+  )
+}
+
 class DeliveryQuesion extends React.Component{
   render(){
     return e(
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
       e('div',{className:'chatting'},'Among these Features which ones do you like ?'),
-      e('button',{className:'butt',onClick:function() {customersurvey.feature = "Delivery Time";AddComponent(++ids,Recommendation,'Recommendation')}},'Delivery Time'),
-      e('button',{className:'butt',onClick:function() {customersurvey.feature = "Variety in Products";AddComponent(++ids,Recommendation,'Recommendation')}},'Variety in Products'),
-      e('button',{className:'butt',onClick:function() {customersurvey.feature = "Customer Service";AddComponent(++ids,Recommendation,'Recommendation')}},'Customer Service')
+      e('div',{id:'Multi'},<Example/>),
+      e('button',{className:'butt',onClick:function() {customersurvey.feature = featurestosend;console.log(customersurvey.feature);AddComponent(++ids,Recommendation,'Recommendation')}},'Confirm Selection')
     );
   }
 }
@@ -218,15 +249,19 @@ class PanCard extends React.Component{
 
 var dae=new Date().toLocaleDateString();
 
-const Example =() => {
-  const [startDate, setStartDate] = useState(new Date());
+function SelectDate({ initialValue }) {
+  const [value, setValue] = useState(initialValue)
   useEffect(() => {
-    dae=startDate.toLocaleDateString();
+    dae=value.toLocaleDateString();
   });
   return (
-    <DatePicker selected={startDate} onChange={(date) => {setStartDate(date);}}  />
-  );
-};
+    <DatePicker
+      dropUp={true}
+      value={value}
+      onChange={value => setValue(value)}
+    />
+  )
+}
 
 class UserDate extends React.Component{
   render(){
@@ -235,6 +270,7 @@ class UserDate extends React.Component{
       e('div',{className:'youclass'},'You'),
       e('br'),
       e('div',{className:'UserReplies', id:'dd'},dae),
+      e('br'),
       e('br')
     );
   }
@@ -246,7 +282,7 @@ class DOB extends React.Component{
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
       e('div',{className:'chatting'},'Great, Now Please Select Your DOB'),
-      e('div',{id:'Date'},<Example/>),
+      e('div',{id:'Date'},<SelectDate initialValue={new Date()} />),
       e('button',{className:'butt',onClick:function() {credit.date = dae;AddComponent(++ids,UserDate,'UserDate');
       sending.placeholder='Enter Pancard Number : for eg - 102083055';AddComponent(++ids,PanCard,'PanCard');}}
       ,'Confirm Date'),
@@ -283,7 +319,6 @@ class ZerothQuestion extends React.Component{
     return e(
       'div',{id:'Question1'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Congrats You have sucessfully Logged In 🥳'),
       e('div',{className:'chatting'},'Kindly Select one of the following options : '),
       e('div',{}, 
       e('button',{className:'butt',onClick:function() {sending.placeholder='Enter Name : for eg - Shikhar Saini';AddComponent(++ids,ApplyCreditCard,'Name')}},'💳 Apply Credit Card'),
@@ -350,11 +385,26 @@ async function checkPassword (){
       console.log(res.data.status);
       if(res.data.status)
         {UserId=res.data.data._id;
-        AddComponent(ids,ZerothQuestion,'ZerothQuestion');}
+        AddComponent(ids,LoginComplete,'ZerothQuestion');}
        else
         {AddComponent(ids,WrongPassword,'WrongPassword');}
     }
   )
+}
+
+class LoginComplete extends React.Component{
+  render(){
+    return e(
+      'div',{id:'Question1'},
+      <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
+      e('div',{className:'chatting'},'Congrats You have sucessfully Logged In 🥳'),
+      e('div',{className:'chatting'},'Kindly Select one of the following options : '),
+      e('div',{}, 
+      e('button',{className:'butt',onClick:function() {sending.placeholder='Enter Name : for eg - Shikhar Saini';AddComponent(++ids,ApplyCreditCard,'Name')}},'💳 Apply Credit Card'),
+      e('button',{className:'butt',onClick:function() {AddComponent(++ids,StartSurvey,'Name')}},'📝 Customer Survey'),
+      e('button',{className:'butt',onClick:function() {AddComponent(++ids,StarterIQtest,'Name')}},'🧠 IQ Test'))
+    );
+  }
 }
 
 

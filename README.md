@@ -12,10 +12,10 @@
 <!-- #### Example: -->
 <!-- <h4>OnB</h4> -->
 <!-- This project is currently in development. Users can filter tweets by username and keyword and see visual data representation. Functionality to sort by additional parameters is in progress. -->
-<h3>Project Idea :bulb:</h3>
-<p>
-
-</p>
+<h3>Problem Statement :writing_hand:</h3>
+<a href="https://github.com/prathamverma42/Grid-Final-1/Round 2 Doc_ Conversational Credit Application.pdf">
+Statement
+</a>
 :camera: Project Screen Shot(s)
 
 <!-- #### Example: -->

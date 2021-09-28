@@ -5,6 +5,7 @@ import logo from './Grid.png';
 import "react-widgets/styles.css";
 import axios from "axios";
 import Multiselect from "react-widgets/Multiselect";
+import DropdownList from "react-widgets/DropdownList";
 import DatePicker from "react-widgets/DatePicker";
 <DatePicker placeholder="m/dd/yy" />;
 
@@ -20,6 +21,7 @@ const login={};
 const signup={};
 var featurestosend={};
 var UserId;
+var CreditType;
 //End of Database Requirements
 
 
@@ -76,7 +78,7 @@ class IQResponse extends React.Component{
     );
   }
 }
-//
+
 
 
 // IQ Test
@@ -169,7 +171,7 @@ class Recommendation extends React.Component{
 
 let Features = ['Customer Service', 'Variety in Products', 'Delivery Time', 'Offers'];
 function Example() {
-  const [value, setValue] = useState([])
+  const [value, setValue] = useState()
   useEffect(() => {
     featurestosend=value;
     //console.log(featurestosend);
@@ -177,6 +179,8 @@ function Example() {
 
   return (
     <Multiselect
+      placeholder={'Choose From Here'}
+      dropUp={true}
       data={Features}
       value={value}
       onChange={value => setValue(value)}
@@ -189,7 +193,7 @@ class DeliveryQuesion extends React.Component{
     return e(
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Among these Features which ones do you like ?'),
+      e('div',{className:'chatting'},'Among these choose the Features you like ?'),
       e('div',{id:'Multi'},<Example/>),
       e('button',{className:'butt',onClick:function() {customersurvey.feature = featurestosend;console.log(customersurvey.feature);AddComponent(++ids,Recommendation,'Recommendation')}},'Confirm Selection')
     );
@@ -234,6 +238,39 @@ class ThankYou extends React.Component{
     ); 
   }
 }
+
+
+let colors = ['Visa', 'American Express', 'Discover', 'Mastercard'];
+
+function CreditCard() {
+  const [value, setValue] = useState('')
+  useEffect(() => {
+    CreditType=value;
+  });
+  return (
+    <DropdownList
+      dropUp={true}
+      placeholder={'Choose From Credit Card'}
+      data={colors}
+      value={value}
+      onChange={value => setValue(value)}
+    />
+  )
+}
+
+class TypeOfCard extends React.Component{
+  render(){
+    return e(
+      'div',{className:'Question'},
+      <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
+      e('div',{className:'chatting'},'Now please select the type of credit card you require:'),
+      e('div',{id:'DropDown'},
+      <CreditCard/>),
+      e('button',{className:'butt',onClick:function() {credit.type=CreditType;AddComponent(++ids,ThankYou,'ThankYou');}},'Confirm Selection')
+    )
+  }
+}
+
 
 class PanCard extends React.Component{
   render(){
@@ -280,7 +317,8 @@ class DOB extends React.Component{
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
       e('div',{className:'chatting'},'Great, Now Please Select Your DOB'),
-      e('div',{id:'Date'},<SelectDate initialValue={new Date()} />),
+      e('div',{id:'DateSelect'},
+      e('div',{id:'Date'},<SelectDate initialValue={new Date()} />)),
       e('button',{className:'butt',onClick:function() {credit.date = dae;AddComponent(++ids,UserDate,'UserDate');
       sending.placeholder='Enter Pancard Number : for eg - 102083055';AddComponent(++ids,PanCard,'PanCard');}}
       ,'Confirm Date'),
@@ -461,7 +499,6 @@ function SignUpBackend(){
 
 
 ReactDOM.render(e(LoginOrSignUp),cont);
-
 function AddComponent(x,y,z){
   var a=document.getElementById("chatbody");
   var b=document.createElement("div");
@@ -497,25 +534,33 @@ function InputValues(){
       cont.appendChild(reply);
       cont.appendChild(document.createElement("br"));
       cont.appendChild(document.createElement("br"));
+      let temp=userString;
+      if(currInput=="LoginPassword"||currInput=="SignUpPassword")
+      {
+        userString='';
+        for(let i=0;i<temp.length;i++)
+        userString=userString+'*';
+      }
       ReactDOM.render(e(UserMessage),document.querySelector("#userreply"+ids));
       cont.appendChild(document.createElement("br"));
       ids++;
       inputbar.value="";
       flag=0;
+      userString=temp;
       if(currInput=="Name")
       {credit.name = userString;sending.placeholder='Enter Number : for eg - 987*******';AddComponent(ids,Number,'Number');}
       else if(currInput=="Number")
       {credit.contact = userString;sending.placeholder='Enter DOB : for eg - DD/MM/YYYY';AddComponent(ids,DOB,'DOB');}
       else if(currInput=="PanCard")
-      {credit.pancard = userString;sending.placeholder=' ';SendToBackend('credit',credit);AddComponent(ids,ThankYou,'ThankYou');}
+      {credit.pancard = userString;sending.placeholder=' ';SendToBackend('credit',credit);AddComponent(ids,TypeOfCard,'TypeOfCard');}
       else if(currInput=="LoginUsername")
-      {login.email=userString;sending.placeholder='Enter Password : ';AddComponent(ids,LoginPassword,'LoginPassword')}
+      {login.email=userString;sending.placeholder='Enter Password : ';sending.type="password";AddComponent(ids,LoginPassword,'LoginPassword')}
       else if(currInput=='LoginPassword')
-      {login.password=userString;sending.placeholder=' ';checkPassword();}
+      {login.password=userString;sending.placeholder=' ';sending.type="text";checkPassword();}
       else if(currInput=='SignUpStart')
-      {signup.email=userString;AddComponent(ids,SignUpPassword,'SignUpPassword');}
+      {signup.email=userString;sending.placeholder='Enter Password : ';sending.type="password";;AddComponent(ids,SignUpPassword,'SignUpPassword');}
       else if(currInput=='SignUpPassword')
-      {signup.password=userString;SignUpBackend();AddComponent(ids,SignUpComplete,'SignUpComplete');}
+      {signup.password=userString;sending.placeholder=' ';sending.type="text";SignUpBackend();AddComponent(ids,SignUpComplete,'SignUpComplete');}
       cont.scrollTop = cont.scrollHeight;
     }
   }

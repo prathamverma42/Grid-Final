@@ -61,7 +61,12 @@ function SendToBackend(file,object){
 class UserMessage extends React.Component{
  render(){
    return e(
-     'div',{className:'UserReplies'},userString
+     'div',{className:'Question'},
+     e('div',{className:'youclass'},'You'),
+     e('br',{}),
+     e('div',{className:'UserReplies'},userString),
+     e('br'),
+     e('br')
    );
  } 
 }
@@ -72,9 +77,7 @@ class IQResponse extends React.Component{
       'div',{className:'Question'},
       e('div',{className:'youclass'},'You'),
       e('br'),
-      e('div',{className:'UserReplies', id:'dd'},userString),
-      e('br'),
-      e('br')
+      e('div',{className:'UserReplies', id:'dd'},userString)
     );
   }
 }
@@ -368,6 +371,17 @@ class ZerothQuestion extends React.Component{
 // Login Starts Here
 
 
+class WrongEmail extends React.Component{
+  render(){
+    return e(
+      'div',{className:'Questions'},
+      <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
+      e('div',{className:'chatting'},'Oops ☹️ You have entered wrong Email'),
+      e('div',{className:'chatting'},'Please Enter Again ')
+    );
+  }
+}
+
 class WrongPassword extends React.Component{
   render(){
     return e(
@@ -414,6 +428,16 @@ class LoginOrSignUp extends React.Component{
   }
 }
 
+function checkEmail(inputText){
+  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if(inputText.match(mailformat)){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 async function checkPassword (){
   console.log(login);
    await axios.post("http://localhost:5000/user/check",login).then(
@@ -448,6 +472,30 @@ class LoginComplete extends React.Component{
 
 
 // SignUp Starts Here
+
+class WrongUsername extends React.Component{
+  render(){
+    return e(
+      'div',{className:'Questions'},
+      <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
+      e('div',{className:'chatting'},'Oops ☹️ Looks like You have entered the wrong Email'),
+      e('div',{className:'chatting'},'Kindly Enter a New Username ')
+    );
+  }
+}
+
+
+class Username extends React.Component{
+  render(){
+    return e(
+      'div',{className:'Question'},
+      <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
+      e('div',{className:'chatting'},'Welcome!! 😄 Let Us Begin Your Sign Up '),
+      e('div',{className:'chatting'},'Please Enter A Unique Username ')
+    );
+  }
+}
+
 class SignUpStart  extends React.Component{
   render(){
     return e(
@@ -495,6 +543,23 @@ function SignUpBackend(){
   )
 }
 
+function checkUsername(){
+  // axios.post("http://localhost:5000/user/check",login).then(
+    //(res)=>{
+      //console.log(res.data.status);
+      //res.data.status
+      if(0)
+        {//UserId=res.data.data._id;
+          sending.placeholder='Enter Password : ';
+          sending.type="password";
+          AddComponent(ids,SignUpPassword,'SignUpPassword');}
+       else
+        {AddComponent(ids,WrongUsername,'WrongUsername');}
+   // }
+ // )
+
+}
+
 // SignUp Ends Here
 
 
@@ -520,20 +585,11 @@ function InputValues(){
     userString=inputbar.value;
     if(userString.length>0)
     {
-      let you=document.createElement("div");
-      you.innerHTML="You";
-      let youclass=document.createAttribute("class");
-      youclass.value='youclass';
-      you.setAttributeNode(youclass);
-      cont.appendChild(you);
       let reply=document.createElement("div");
-      cont.appendChild(document.createElement("br"));
       let att=document.createAttribute("id");
       att.value="userreply"+ids;
       reply.setAttributeNode(att);
       cont.appendChild(reply);
-      cont.appendChild(document.createElement("br"));
-      cont.appendChild(document.createElement("br"));
       let temp=userString;
       if(currInput=="LoginPassword"||currInput=="SignUpPassword")
       {
@@ -541,7 +597,14 @@ function InputValues(){
         for(let i=0;i<temp.length;i++)
         userString=userString+'*';
       }
-      ReactDOM.render(e(UserMessage),document.querySelector("#userreply"+ids));
+        ReactDOM.render(e(UserMessage),document.querySelector("#userreply"+ids));  
+        if(currInput!='LoginUsername'||checkEmail(userString)){
+        }
+        else{
+          inputbar.value="";
+          AddComponent(++ids,WrongEmail,'LoginUsername');
+          return;
+        }
       cont.appendChild(document.createElement("br"));
       ids++;
       inputbar.value="";
@@ -558,9 +621,11 @@ function InputValues(){
       else if(currInput=='LoginPassword')
       {login.password=userString;sending.placeholder=' ';sending.type="text";checkPassword();}
       else if(currInput=='SignUpStart')
-      {signup.email=userString;sending.placeholder='Enter Password : ';sending.type="password";;AddComponent(ids,SignUpPassword,'SignUpPassword');}
+      {signup.email=userString;checkUsername();}
       else if(currInput=='SignUpPassword')
       {signup.password=userString;sending.placeholder=' ';sending.type="text";SignUpBackend();AddComponent(ids,SignUpComplete,'SignUpComplete');}
+      else if(currInput=='WrongUsername')
+      {signup.email=userString;checkUsername();}
       cont.scrollTop = cont.scrollHeight;
     }
   }

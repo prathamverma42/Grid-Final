@@ -19,6 +19,7 @@ const customersurvey = {};
 const iqtest = {};
 const login={};
 const signup={};
+const unique_email={};
 var featurestosend={};
 var UserId;
 var CreditType;
@@ -478,23 +479,13 @@ class WrongUsername extends React.Component{
     return e(
       'div',{className:'Questions'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Oops ☹️ Looks like You have entered the wrong Email'),
-      e('div',{className:'chatting'},'Kindly Enter a New Username ')
+      e('div',{className:'chatting'},'Oops ☹️ Looks like The Email you have entered already Exists'),
+      e('div',{className:'chatting'},'Kindly Enter another email ')
     );
   }
 }
 
 
-class Username extends React.Component{
-  render(){
-    return e(
-      'div',{className:'Question'},
-      <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Welcome!! 😄 Let Us Begin Your Sign Up '),
-      e('div',{className:'chatting'},'Please Enter A Unique Username ')
-    );
-  }
-}
 
 class SignUpStart  extends React.Component{
   render(){
@@ -502,7 +493,7 @@ class SignUpStart  extends React.Component{
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
       e('div',{className:'chatting'},'Welcome!! 😄 Let Us Begin Your Sign Up '),
-      e('div',{className:'chatting'},'Please Enter A Unique Username ')
+      e('div',{className:'chatting'},'Please Enter Your Email ID ')
     );
   }
 }
@@ -522,7 +513,7 @@ class SignUpComplete extends React.Component{
     return e(
       'div',{className:'Question'},
       <div id='image'><img src={logo} height={10}/><span>  GridBot</span></div>,
-      e('div',{className:'chatting'},'Thank You!! Your Sign Up is Complete ✨✨✨'),
+      e('div',{className:'chatting'},'Thank You!! Your Sign Up is Complete ✨✨'),
       e('div',{className:'chatting'},'Now Choose From the Following Options : 👇'),
       e('div',{}, 
       e('button',{className:'butt',onClick:function() {sending.placeholder='Enter Name : for eg - Shikhar Saini';AddComponent(++ids,ApplyCreditCard,'Name')}},'💳 Apply Credit Card'),
@@ -544,19 +535,18 @@ function SignUpBackend(){
 }
 
 function checkUsername(){
-  // axios.post("http://localhost:5000/user/check",login).then(
-    //(res)=>{
-      //console.log(res.data.status);
-      //res.data.status
-      if(0)
-        {//UserId=res.data.data._id;
+  axios.post("http://localhost:5000/user/checkuser",unique_email).then(
+    (res)=>{
+      console.log(res.data.success);
+      if(res.data.success)
+        { //UserId=res.data.data._id;
           sending.placeholder='Enter Password : ';
           sending.type="password";
           AddComponent(ids,SignUpPassword,'SignUpPassword');}
        else
         {AddComponent(ids,WrongUsername,'WrongUsername');}
-   // }
- // )
+    }
+  )
 
 }
 
@@ -597,14 +587,13 @@ function InputValues(){
         for(let i=0;i<temp.length;i++)
         userString=userString+'*';
       }
-        ReactDOM.render(e(UserMessage),document.querySelector("#userreply"+ids));  
-        if(currInput!='LoginUsername'||checkEmail(userString)){
-        }
-        else{
-          inputbar.value="";
-          AddComponent(++ids,WrongEmail,'LoginUsername');
-          return;
-        }
+      ReactDOM.render(e(UserMessage),document.querySelector("#userreply"+ids));  
+      if(currInput!='LoginUsername'||checkEmail(userString)){}
+      else{
+        inputbar.value="";
+        AddComponent(++ids,WrongEmail,'LoginUsername');
+        return;
+      }
       cont.appendChild(document.createElement("br"));
       ids++;
       inputbar.value="";
@@ -621,7 +610,7 @@ function InputValues(){
       else if(currInput=='LoginPassword')
       {login.password=userString;sending.placeholder=' ';sending.type="text";checkPassword();}
       else if(currInput=='SignUpStart')
-      {signup.email=userString;checkUsername();}
+      {signup.email=userString;unique_email.email=userString;checkUsername();}
       else if(currInput=='SignUpPassword')
       {signup.password=userString;sending.placeholder=' ';sending.type="text";SignUpBackend();AddComponent(ids,SignUpComplete,'SignUpComplete');}
       else if(currInput=='WrongUsername')
